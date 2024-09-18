@@ -1,33 +1,28 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const db = require('./app/config/db.config.js');
-const Router = require('./app/routers/router.js');
-
-
 const app = express();
+const PORT = 3000;
 
-const corsOptions = {
-  origin: 'http://localhost:4200',
-  optionsSuccessStatus: 200
-};
-app.use(cors(corsOptions));
+// Importar la configuración de la base de datos
+const sequelize = require('./app/config/db.config'); // Ajusta esta ruta según tu estructura
 
-app.use(bodyParser.json());
+// Middleware para parsear JSON
+app.use(express.json());
 
-db.sequelize.sync({ force: false }).then(() => {
-  console.log('Resync with { force: false }');
+// Probar la conexión a la base de datos
+sequelize.authenticate()
+    .then(() => console.log('Conectado a la base de datos'))
+    .catch(err => console.error('No se pudo conectar a la base de datos:', err));
+
+// Sincronizar la base de datos
+sequelize.sync({ force: false }) // Aquí es donde puede estar el problema
+    .then(() => {
+        console.log('Base de datos sincronizada');
+    })
+    .catch(err => {
+        console.error('Error al sincronizar la base de datos:', err);
+    });
+
+// Iniciar el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
-
-app.use('/', Router); 
-
-app.get("/", (req, res) => {
-  res.json({ message: "Bienvenidos UMG" });
-});
-
-const server = app.listen(3000, function () {
-  let host = server.address().address;
-  let port = server.address().port;
-  console.log("App listening at http://%s:%s", host, port);
-});
-
