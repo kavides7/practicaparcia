@@ -1,10 +1,10 @@
 const { Sequelize } = require('sequelize');
 
 const env = {
-    database: 'umg_antigua_2024_20404_ah4n',
-    username: 'umg_antigua_2024_20404_ah4n_user',
-    password: 'Ztfq3Q6lAepSPq2hXefe76OG5tKfRdwv',
-    host: 'dpg-cr6jnitds78s73bur500-a.oregon-postgres.render.com',
+    database: 'umg_antigua_2024_20404_9ug9',
+    username: 'umg_antigua_2024_20404_9ug9_user',
+    password: 'jjOk5Ydxvsh0OSqZKcHik74DgZZhAz7t',
+    host: 'dpg-crus5qqj1k6c73ff03fg-a.oregon-postgres.render.com',
     dialect: 'postgres',
     pool: {
         max: 5,
